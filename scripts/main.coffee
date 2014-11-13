@@ -12,12 +12,12 @@ require reqs, (onLoad, world, display, input) ->
         timeElapsed : 0
 
     init = ->
-        state.width = 960
-        state.height = 540
+        state.width = world.width
+        state.height = world.height
         state.running = true
+        state.keys = input
         display.init state
         display.showFPS = no
-        state.keys = input
         run()
 
     run = ->

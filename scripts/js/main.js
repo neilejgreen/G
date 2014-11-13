@@ -17,12 +17,12 @@
       timeElapsed: 0
     };
     init = function() {
-      state.width = 960;
-      state.height = 540;
+      state.width = world.width;
+      state.height = world.height;
       state.running = true;
+      state.keys = input;
       display.init(state);
       display.showFPS = false;
-      state.keys = input;
       return run();
     };
     run = function() {

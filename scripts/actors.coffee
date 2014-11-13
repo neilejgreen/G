@@ -1,6 +1,6 @@
 define(["color"], (color) ->
 
-    black = ->
+    player = ->
         speed = .1 # pixels / millisecond
         initialized = no
         mainBlock =
@@ -29,7 +29,7 @@ define(["color"], (color) ->
                 mainBlock.x -= permissableMove
 
         getRenderTargets : () ->
-            [mainBlock]
+            mainBlock
 
     blue = ->
         mainBlock =
@@ -85,20 +85,21 @@ define(["color"], (color) ->
             [block]
 
 
-    red =
+    red = ({x, y}) ->
         update : ->
         getRenderTargets : () ->
-            [
-                shape : "Rectangle"
-                color : color.red
-                x : 10, y : 10
-                width : 55, height : 50
-            ]
+            shape : "Rectangle"
+            color : color.red
+            x : x, y : y
+            width : 55, height : 50
 
-    [
+    empty = () ->
+
+    {
         red
-        blue()
-        green()
-        black()
-    ]
+        blue
+        green
+        player
+        empty
+    }
 )
