@@ -1,22 +1,15 @@
 define(["color"], (color) ->
 
-    player = ->
-        speed = .1 # pixels / millisecond
-        initialized = no
+    player = ({x, y, width, height}) ->
+        speed = .3 # pixels / millisecond
+
         mainBlock =
             shape : "Rectangle"
             color : color.black
-            x : 0, y : 0
-            width : 10, height : 80
+            x : x, y : y
+            width : width, height : height
 
         update : (state) ->
-            if not initialized
-                mainBlock.x =
-                    (state.width -  mainBlock.width) / 2
-                mainBlock.y =
-                    (state.height - 20 - mainBlock.height)
-                initialized = yes
-
             permissableMove = speed * state.frameElapsed
 
             if state.keys.isDown "Down Arrow"
@@ -31,23 +24,25 @@ define(["color"], (color) ->
         getRenderTargets : () ->
             mainBlock
 
-    blue = ->
+    blue = ({x, y, width, height}) ->
+        startX = x
         mainBlock =
             shape : "Rectangle"
             color : color.blueTint
-            x : 0, y : 30
-            width : 55, height : 50
+            x : 0, y : y
+            width : width, height : height
 
         altBlock =
             shape : "Rectangle"
             color : color.blueTint
-            x : -100, y : 30
+            x : -100, y : y
             width : 55, height : 50
 
         return {
             update : (state) ->
                 mainBlock.x =
-                    state.width * (state.startElapsed % 10 ** 4 ) / 10 ** 4
+                    ((state.width * state.startElapsed / 10 ** 4) + startX)\
+                    % state.width
 
                 altBlock.x =
                     if mainBlock.x + mainBlock.width > state.width
@@ -60,16 +55,16 @@ define(["color"], (color) ->
                     [mainBlock, altBlock]
         }
 
-    green = ->
+    green = ({x, y, width, height}) ->
         block =
             shape : "Rectangle"
             color : color.green
-            x : 0, y : 0
-            width : 20, height : 20
+            x : x, y : y
+            width : width, height : height
         update : (state) ->
 
-            baseHeight = 20
-            extraHeight = 20
+            baseHeight = height / 2
+            extraHeight = height / 2
             cycleLength = 200
 
             positionInCycle = state.startElapsed % cycleLength / cycleLength
@@ -85,14 +80,13 @@ define(["color"], (color) ->
             [block]
 
 
-    red = ({x, y}) ->
+    red = ({x, y, width, height}) ->
         update : ->
-        getRenderTargets : () ->
+        getRenderTargets : () ->{
             shape : "Rectangle"
             color : color.red
-            x : x, y : y
-            width : 55, height : 50
-
+            x, y, width, height
+        }
     empty = () ->
 
     {
