@@ -4,11 +4,13 @@ require reqs, (onLoad, world, display, input) ->
     constants =
         interval : 1000 / 60
 
+    highResTime = window.performance.now()
+
     state =
         running : false
         canvas : null
-        startTime : +new Date()
-        lastFrame : +new Date()
+        startTime : highResTime
+        lastFrame : highResTime
         timeElapsed : 0
 
     init = ->
@@ -18,18 +20,18 @@ require reqs, (onLoad, world, display, input) ->
         state.keys = input
         display.init state
         display.showFPS = no
-        run()
+        window.requestAnimationFrame run
 
-    run = ->
-        state.startElapsed = +new Date() - state.startTime
-        state.frameElapsed = +new Date() - state.lastFrame
+    run = (hiResTime)->
+        state.startElapsed = hiResTime - state.startTime
+        state.frameElapsed = hiResTime - state.lastFrame
 
         if state.running
             world.update state
             world.render state, display
 
-        setTimeout run, constants.interval
+        state.lastFrame = hiResTime
 
-        state.lastFrame = +new Date()
+        window.requestAnimationFrame run
 
     onLoad init

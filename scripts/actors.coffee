@@ -36,7 +36,7 @@ define(["color"], (color) ->
             shape : "Rectangle"
             color : color.blueTint
             x : -100, y : y
-            width : 55, height : 50
+            width : width, height : height
 
         return {
             update : (state) ->
@@ -82,7 +82,7 @@ define(["color"], (color) ->
 
     red = ({x, y, width, height}) ->
         update : ->
-        getRenderTargets : () ->{
+        getRenderTargets : () -> {
             shape : "Rectangle"
             color : color.red
             x, y, width, height

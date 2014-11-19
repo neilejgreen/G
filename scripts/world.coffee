@@ -5,6 +5,7 @@ define ["actors", "grid", "../../lib/lodash"], (actors, grid, _) ->
 
     stage = []
 
+    #parse the map
     [gridRows, gridCols] = [grid.map.length, grid.map[0].length]
     [cellWidth, cellHeight] = [width / gridCols, height / gridRows]
 

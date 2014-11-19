@@ -1,24 +1,30 @@
+
+createElement = (html) ->
+    div = document.createElement("DIV")
+    div.innerHTML = html
+    div.firstChild
+
+makeContext = (state) ->
+    {width, height} = state
+    canvasEle = createElement "
+        <canvas id='g-canvas' width='#{width}' height='#{height}'/>
+    "
+    document.body.appendChild canvasEle
+    canvasEle.getContext '2d'
+
 define ["color", "input"], (color) ->
 
     canvas = null
     width = null
     height = null
 
-    createElement = (html) ->
-        div = document.createElement("DIV")
-        div.innerHTML = html
-        div.firstChild
-
-    makeContext = (state) ->
-        {width, height} = state
-        canvasEle = createElement "
-            <canvas id='g-canvas' width='#{width}' height='#{height}'/>
-        "
-        document.body.appendChild canvasEle
-        canvas = canvasEle.getContext '2d'
-
     canvasClear = () ->
         canvas.clearRect 0, 0, canvas.canvas.width, canvas.canvas.height
+
+    renderTarget = (target) ->
+        switch target.shape
+            when "Rectangle" then canvasRect target
+            when "Text" then canvasText target.message, target.x, target.y
 
     canvasRect = (object) ->
         try
@@ -32,18 +38,17 @@ define ["color", "input"], (color) ->
         canvas.font = "16px consolas"
         canvas.fillText message, x, y
 
-    renderTarget = (target) ->
-        switch target.shape
-            when "Rectangle" then canvasRect target
-            when "Text" then canvasText target.message, target.x, target.y
-
     renderWorld = (state, targets) ->
         canvasClear()
         renderTarget target for target in targets
         if display.showFPS
             canvasText "#{~~( 1000 / state.frameElapsed)} fps"
 
-    display =
-        init : makeContext
+    init = (state) ->
+        canvas = makeContext(state)
+
+    display = {
+        init,
         renderWorld : renderWorld
         showFPS : no
+    }
