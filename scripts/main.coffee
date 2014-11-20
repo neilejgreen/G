@@ -22,7 +22,7 @@ require reqs, (onLoad, world, display, input) ->
         display.showFPS = no
         window.requestAnimationFrame run
 
-    run = (hiResTime)->
+    run = (hiResTime) ->
         state.startElapsed = hiResTime - state.startTime
         state.frameElapsed = hiResTime - state.lastFrame
 
