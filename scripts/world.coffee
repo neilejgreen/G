@@ -1,4 +1,4 @@
-define ["actors", "grid", "../../lib/lodash"], (actors, grid, _) ->
+define ["cast", "grid", "lodash"], (cast, grid, _) ->
 
     #TODO Define these elsewhere
     [width, height] = [960, 540]
@@ -15,7 +15,7 @@ define ["actors", "grid", "../../lib/lodash"], (actors, grid, _) ->
             x = ci / gridCols * width
             y = ri / gridRows * height
 
-            stage.push actors[actorType] {
+            stage.push cast[actorType] {
                 x, y,
                 width : cellWidth, height : cellHeight
             }

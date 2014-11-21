@@ -1,6 +1,14 @@
+
+require.config
+    paths :
+        actors : "../actors/js"
+        lodash : "../../lib/lodash"
+
+require ["lodash"], (lodash) ->
+    lodash.noConflict()
+
 reqs = ["onLoad", "world", "display", "input"]
 require reqs, (onLoad, world, display, input) ->
-
     constants =
         interval : 1000 / 60
 
