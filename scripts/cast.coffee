@@ -1,4 +1,4 @@
-castList = ["empty", "blue", "green", "red", "player"]
+castList = ["empty", "baddie", "treasure", "wall", "player"]
 
 externals = ["lodash"].concat("actors/#{a}" for a in castList)
 

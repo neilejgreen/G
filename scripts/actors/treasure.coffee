@@ -2,7 +2,7 @@ define ["color"], (color) ->
     ({x, y, width, height}) ->
         block =
             shape : "Rectangle"
-            color : color.green
+            color : color.gold
             x : x, y : y
             width : width, height : height
 

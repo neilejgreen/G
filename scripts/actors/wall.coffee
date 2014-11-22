@@ -3,6 +3,6 @@ define ["color"], (color) ->
         update : ->
         getRenderTargets : () -> {
             shape : "Rectangle"
-            color : color.red
+            color : color.wood
             x, y, width, height
         }
