@@ -6,10 +6,11 @@ define ["color"], (color) ->
             color : color.black
             x : x, y : y
             width : width, height : height
-
+        type : "player"
+        boundingBlock : -> mainBlock
         update : (state) ->
-            permissableMove = speed * state.frameElapsed
 
+            permissableMove = speed * state.frameElapsed
             if state.keys.isDown "Down Arrow"
                 mainBlock.y += permissableMove
             if state.keys.isDown "Up Arrow"

@@ -26,7 +26,7 @@ define ["cast", "grid", "lodash"], (cast, grid, _) ->
         width
         height
         update : (state) ->
-            actor.update state for actor in stage
+            actor.update state, stage for actor in stage
 
         render : (state, display) ->
             targets = _.flatten( actor.getRenderTargets() for actor in stage )

@@ -3,9 +3,15 @@ require.config
     paths :
         actors : "../actors/js"
         lodash : "../../lib/lodash"
+    shim :
+        lodash :
+            exports : "_"
+            init : () ->
+                _.noConflict()
 
-require ["lodash"], (lodash) ->
-    lodash.noConflict()
+require ["lodash", "loadCss"], (lodash, loadCss) ->
+    #lodash.noConflict()
+    loadCss "css/css.css"
 
 reqs = ["onLoad", "world", "display", "input"]
 require reqs, (onLoad, world, display, input) ->

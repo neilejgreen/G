@@ -8,6 +8,7 @@ define ["color"], (color) ->
             width : width, height : height
 
         return {
+            type : "baddie"
             update : (state) ->
                 loopLength = (state.width - mainBlock.width) * 2
                 pointPMS = loopLength / 10 ** 4
@@ -18,7 +19,7 @@ define ["color"], (color) ->
                     mainBlock.x = pointsPosition
                 else
                     mainBlock.x = loopLength - pointsPosition
-
+            boundingBlock : () -> mainBlock
             getRenderTargets : () ->
                 mainBlock
         }

@@ -38,3 +38,4 @@ Icon
 #compiled js
 scripts/js
 scripts/actors/js
+tests/js

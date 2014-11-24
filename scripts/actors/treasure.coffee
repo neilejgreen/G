@@ -6,6 +6,8 @@ define ["color"], (color) ->
             x : x, y : y
             width : width, height : height
 
+        type : "treasure"
+        boundingBlock : -> {x, y, width, height}
         update : (state) ->
 
             baseHeight = height / 2
