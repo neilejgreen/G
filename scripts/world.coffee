@@ -1,7 +1,7 @@
 define ["cast", "grid", "lodash"], (cast, grid, _) ->
 
     #TODO Define these elsewhere
-    [width, height] = [960, 540]
+    [width, height] = [940, 480]
 
     stage = []
 

@@ -1,4 +1,4 @@
-define ["color"], (color) ->
+define ["color", "collision"], (color, collision) ->
     ({x, y, width, height}) ->
         speed = .3 # pixels / millisecond
         mainBlock =
@@ -6,19 +6,25 @@ define ["color"], (color) ->
             color : color.black
             x : x, y : y
             width : width, height : height
+
         type : "player"
         boundingBlock : -> mainBlock
-        update : (state) ->
-
+        update : (state, stage) ->
+            movedBlock = _.clone(mainBlock)
             permissableMove = speed * state.frameElapsed
             if state.keys.isDown "Down Arrow"
-                mainBlock.y += permissableMove
+                movedBlock.y += permissableMove
             if state.keys.isDown "Up Arrow"
-                mainBlock.y -= permissableMove
+                movedBlock.y -= permissableMove
             if state.keys.isDown "Right Arrow"
-                mainBlock.x += permissableMove
+                movedBlock.x += permissableMove
             if state.keys.isDown "Left Arrow"
-                mainBlock.x -= permissableMove
+                movedBlock.x -= permissableMove
 
+            wallBlocks = stage
+                .filter (it) -> it.type is "wall"
+                .map (it) -> it.boundingBlock()
+            if not wallBlocks.some collision.hit.bind collision, movedBlock
+                mainBlock = movedBlock
         getRenderTargets : () ->
             mainBlock

@@ -12,7 +12,7 @@ define ["color"], (color) ->
 
             baseHeight = height / 2
             extraHeight = height / 2
-            cycleLength = 200
+            cycleLength = 800
 
             positionInCycle = state.startElapsed % cycleLength / cycleLength
             #Cos of (position * Tau) adjusted to be [0..1] rather than [-1..1]

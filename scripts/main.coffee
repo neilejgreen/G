@@ -3,6 +3,7 @@ require.config
     paths :
         actors : "../actors/js"
         lodash : "../../lib/lodash"
+        "tinyColor": "//cdnjs.cloudflare.com/ajax/libs/tinycolor/1.1.0/tinycolor"
     shim :
         lodash :
             exports : "_"
@@ -32,11 +33,18 @@ require reqs, (onLoad, world, display, input) ->
         state.height = world.height
         state.running = true
         state.keys = input
+
+        #todo: handle with input module
+        addEventListener "keydown", (e) ->
+            if e.which is 'P'.charCodeAt(0)
+                state.running = !state.running
+
         display.init state
         display.showFPS = no
         window.requestAnimationFrame run
 
     run = (hiResTime) ->
+
         state.startElapsed = hiResTime - state.startTime
         state.frameElapsed = hiResTime - state.lastFrame
 
