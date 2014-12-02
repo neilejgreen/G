@@ -19,34 +19,13 @@ define [], () ->
         yCollision = oneP.top < twoP.bottom and oneP.bottom > twoP.top
 
         return xCollision and yCollision
-###
-    moveTo : (mover, vector, blocker) ->
-        if vector.x and vector.y
-            throw new Error "Vector must be up/down or left/right."
 
-        #find the comp and orthoganal dimension (assuming left-right vector)
-        #comp will be the limits of the block ??????
-        comp =
-            mov :
-                left : mover.x
-                right : mover.x + mover.width
-            blk :
-                left : blocker.x
-                right : blocker.x + blocker.width
-
-        orth =
-            mov :
-                left : mover.y
-                right : mover.y + mover.height
-            blk :
-                left : blocker.y
-                right : blocker.y + blocker.height
-
-        #flip for updown vector
-        if vector.y
-            [comp, orth] = [orth, comp]
-
-        #No colision possible if the targets don't overlap in the orth direction
-        if orth.mov.left > orth.blk.right or orth.mov.right < orth.blk.left
-            return vector
-###
+    moveTo : (mover, blocker, vector) ->
+        if vector.x > 0
+            mover.x = Math.max(blocker.x - mover.width, mover.x)
+        if vector.x < 0
+            mover.x = Math.min(blocker.x + blocker.width, mover.x)
+        if vector.y > 0
+            mover.y = Math.max(blocker.y - mover.height, mover.y)
+        if vector.y < 0
+            mover.y = Math.min(blocker.y + blocker.height, mover.y)

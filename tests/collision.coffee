@@ -5,65 +5,69 @@ define ["chai", "scripts/collision"], ({expect}, collision) ->
             expect(collision).to.be.an("object")
         it "should contain a hit method", ->
             expect(collision.hit).to.be.a("function")
+        it "should contain a moveTo method", ->
+            expect(collision.moveTo).to.be.a("function")
     describe "hit", ->
         it "should return false for non-overlapping rectangles",  ->
             one = {x:1, y:1, width:1, height:1}
             two = {x:3, y:3, width:1, height:1}
-            expect(collision.hit one, two).to.be.equal(false)
+            expect(collision.hit one, two).to.be.false
 
         it "should return true for overlapping rectangles",  ->
             one = {x:1, y:1, width:2.5, height:2.5}
             two = {x:3, y:3, width:1, height:1}
-            expect(collision.hit one, two).to.be.equal(true)
+            expect(collision.hit one, two).to.be.true
         it "should return true for matching rectangles", ->
             one = {x:1, y:1, width:1, height:1}
-            expect(collision.hit one, one).to.be.equal(true)
+            expect(collision.hit one, one).to.be.true
         it "should return false for adjacent rectangles", ->
             one = {x:1, y:1, width:1, height:1}
             two = {x:1, y:2, width:1, height:1}
-            expect(collision.hit one, two).to.be.equal(false)
-###
+            expect(collision.hit one, two).to.be.false
+
     describe "moveTo", ->
         [mover, blocker, vector] = []
-        before ->
+        beforeEach ->
             mover = {
-                x : 3.2, y : 2.4
-                width : 1.2, height : 1.2
+                x : 0, y : 0
+                width : .2, height : .2
             }
             blocker = {
-                x : 5.2, y : 5.8
-                width : 1.2, height : 1.2
+                x : 1, y : 1
+                width : .5, height : .5
             }
 
-        describe "block completely misses", ->
-            it "Should not change vector", ->
-                vector = { x : 1, y : 0}
-                collision.moveTo mover, vector, blocker
-                expect(result).to.deep.equal(vector)
+        describe "basic moves", ->
+            it "should move mover to left edge when moving right", ->
+                collision.moveTo mover, blocker, {x:1, y:0}
+                expect(mover.x).to.be.equal(blocker.x - mover.width)
 
-        describe "block misses by going left to right above the block", ->
-            it "Should not change vector", ->
-                vector = {x : 8, y : 0}
-                result = collision.moveTo mover, vector, blocker
-                expect(result).to.deep.equal(vector)
+            it "should move mover to right edge when moving left", ->
+                mover.x = 5
+                collision.moveTo mover, blocker, {x:-1, y:0}
+                expect(mover.x).to.be.equal(blocker.x + blocker.width)
 
-        describe "block misses by going top to bottom left of the block", ->
-            it "Should not change vector", ->
-                vector = {x : 0, y : 8}
-                result = collision.moveTo mover, vector, blocker
-                expect(result).to.deep.equal(vector)
+            it "should move mover to top edge when moving down", ->
+                collision.moveTo mover, blocker, {x:0, y:1}
+                expect(mover.y).to.be.equal(blocker.y - mover.height)
 
-        describe "block misses by approaching the blocker not reaching it", ->
-            it "Should not change vector", ->
-                mover.y = blocker.y
-                vector = {x : .2, y : 0}
-                result = collision.moveTo mover, vector, blocker
-                expect(result).to.deep.equal(vector)
+            it "should move mover to bottom edge when moving up", ->
+                mover.y = 5
+                collision.moveTo mover, blocker, {x:0, y:-1}
+                expect(mover.y).to.be.equal(blocker.y + blocker.height)
 
-        describe "block collides", ->
-            it "Should change vector", ->
-                mover.y = blocker.y
-                vector = {x : 2, y : 0}
-                result = collision.moveTo mover, vector, blocker
-                expect(result).to.not.deep.equal(vector)
-###
+        describe "diagonal moves", ->
+
+            it "should move diagonal mover to corner", ->
+                collision.moveTo mover, blocker, {x:1,y:1}
+                expect([mover.x, mover.y]).to.be.eql([.8, .8])
+
+            it "should not move mover left when vector goes right", ->
+                ###
+                position mover above blocker, then move down and right
+                this simulates a diagonal collision that should not place
+                mover left of blocker
+                ###
+                [mover.x, mover.y] = [1.1, 0.8]
+                collision.moveTo mover, blocker, {x:1,y:1}
+                expect(mover.x).to.be.equal(1.1)

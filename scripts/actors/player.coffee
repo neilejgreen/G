@@ -1,4 +1,4 @@
-define ["color", "collision"], (color, collision) ->
+define ["lodash", "color", "collision"], (lodash, color, collision) ->
     ({x, y, width, height}) ->
         speed = .3 # pixels / millisecond
         mainBlock =
@@ -24,7 +24,14 @@ define ["color", "collision"], (color, collision) ->
             wallBlocks = stage
                 .filter (it) -> it.type is "wall"
                 .map (it) -> it.boundingBlock()
-            if not wallBlocks.some collision.hit.bind collision, movedBlock
+
+            hitBlk = _.find wallBlocks, collision.hit.bind collision, movedBlock
+            if hitBlk
+                collision.moveTo mainBlock, hitBlk, {
+                    x: movedBlock.x - mainBlock.x
+                    y: movedBlock.y - mainBlock.y
+                }
+            else
                 mainBlock = movedBlock
         getRenderTargets : () ->
             mainBlock
