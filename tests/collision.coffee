@@ -40,7 +40,7 @@ define ["chai", "scripts/collision"], ({expect}, collision) ->
         describe "basic moves", ->
             it "should move mover to left edge when moving right", ->
                 collision.moveTo mover, blocker, {x:1, y:0}
-                expect(mover.x).to.be.equal(blocker.x - mover.width)
+                expect(mover.x).to.be.equal(0.8)
 
             it "should move mover to right edge when moving left", ->
                 mover.x = 5

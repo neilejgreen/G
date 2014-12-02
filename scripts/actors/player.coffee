@@ -10,28 +10,48 @@ define ["lodash", "color", "collision"], (lodash, color, collision) ->
         type : "player"
         boundingBlock : -> mainBlock
         update : (state, stage) ->
-            movedBlock = _.clone(mainBlock)
             permissableMove = speed * state.frameElapsed
+
+            vector = {x:0, y:0}
+
             if state.keys.isDown "Down Arrow"
-                movedBlock.y += permissableMove
+                vector.y += permissableMove
             if state.keys.isDown "Up Arrow"
-                movedBlock.y -= permissableMove
+                vector.y -= permissableMove
             if state.keys.isDown "Right Arrow"
-                movedBlock.x += permissableMove
+                vector.x += permissableMove
             if state.keys.isDown "Left Arrow"
-                movedBlock.x -= permissableMove
+                vector.x -= permissableMove
 
-            wallBlocks = stage
-                .filter (it) -> it.type is "wall"
-                .map (it) -> it.boundingBlock()
+            #normalize vector when movig diagonally
+            if vector.x and vector.y
+                vector.x *= Math.SQRT1_2
+                vector.y *= Math.SQRT1_2
 
-            hitBlk = _.find wallBlocks, collision.hit.bind collision, movedBlock
-            if hitBlk
-                collision.moveTo mainBlock, hitBlk, {
-                    x: movedBlock.x - mainBlock.x
-                    y: movedBlock.y - mainBlock.y
-                }
-            else
-                mainBlock = movedBlock
+            return if not (vector.x or vector.y)
+
+            ###
+            Split move into two different collisionTests :(
+            This prevents you slipping through one wall because you collided
+            with a different wall first and allows you to move along a wall
+            whilst trying to move toward it
+            ###
+            attemptMove = (v) ->
+                movedBlock = _.clone(mainBlock)
+                movedBlock.x += v.x
+                movedBlock.y += v.y
+
+                wallBlocks = stage
+                    .filter (it) -> it.type is "wall"
+                    .map (it) -> it.boundingBlock()
+
+                movedBlockCollision = collision.hit.bind collision, movedBlock
+                hitBlk = _.find wallBlocks, movedBlockCollision
+                if hitBlk
+                    collision.moveTo mainBlock, hitBlk, v
+                else
+                    mainBlock = movedBlock
+            attemptMove({x:vector.x, y:0})
+            attemptMove({x:0, y:vector.y})
         getRenderTargets : () ->
             mainBlock
