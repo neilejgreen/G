@@ -23,7 +23,7 @@ it will only trigger at most twice).  When it does trigger, execute all the func
 
 The exported onload function:
 
-        onload  = (func) ->
+        onLoad  = (func) ->
             if loadComplete
                 func()
             else
