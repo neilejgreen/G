@@ -1,4 +1,4 @@
-define ["lodash", "color", "collision"], (lodash, color, collision) ->
+define ["lodash", "color", "collision", "input"], (lodash, color, collision, input) ->
     ({x, y, width, height}) ->
         speed = .3 # pixels / millisecond
         mainBlock =
@@ -14,13 +14,13 @@ define ["lodash", "color", "collision"], (lodash, color, collision) ->
 
             vector = {x:0, y:0}
 
-            if state.keys.isDown "Down Arrow"
+            if input.isDown "Down Arrow"
                 vector.y += permissableMove
-            if state.keys.isDown "Up Arrow"
+            if input.isDown "Up Arrow"
                 vector.y -= permissableMove
-            if state.keys.isDown "Right Arrow"
+            if input.isDown "Right Arrow"
                 vector.x += permissableMove
-            if state.keys.isDown "Left Arrow"
+            if input.isDown "Left Arrow"
                 vector.x -= permissableMove
 
             #normalize vector when movig diagonally
