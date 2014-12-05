@@ -3,14 +3,13 @@ Todo
 
 General
 ---------
-+ Bad guy interaction
-+ Win condition
-  + and win screen or continuation
 + Game State
     + Game Start screen
     + Levels
++ Bad guy interaction
++ Win condition
+  + and win screen or continuation
 + Game overlay
-+ Differentiate game time and real time to enable pause
 
 Achieved
 ----------
@@ -22,3 +21,4 @@ Achieved
 * Baddies
 * Walls
 * Testing
+* Pause

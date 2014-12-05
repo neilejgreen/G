@@ -4,7 +4,7 @@ Game
 ###Purpose
 Create the world, setup loops and manage the display
 
-    define ["world", "display"], (world, display) ->
+    define ["level", "display"], (level, display) ->
 
 ---------
 
@@ -14,6 +14,7 @@ Initialize `constants` and the `state`
             interval : 1000 / 60
 
         state = {}
+        world = null
 
 Allow the game to be paused and unpaused:
 
@@ -23,6 +24,8 @@ Allow the game to be paused and unpaused:
 Init function initilizes timing and kicks the loops off
 
         init = ->
+
+            world = new level
             hiResTime = window.performance.now()
 
             state.width = world.width

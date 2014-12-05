@@ -1,4 +1,4 @@
-define ["onload", "keys"], (onload, KEYS) ->
+define ["simpleEvents", "keys"], (simpleEvents, KEYS) ->
 
     keysThatAreDown = []
 
@@ -14,7 +14,7 @@ define ["onload", "keys"], (onload, KEYS) ->
         removeKey(key)
 
 
-    onload () ->
+    simpleEvents.onLoad () ->
         addEventListener "keydown", (e) ->
             addKey(e.which)
 
