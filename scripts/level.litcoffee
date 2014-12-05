@@ -5,7 +5,7 @@
                 #TODO Define these elsewhere
                 [@width, @height] = [940, 480]
 
-                @loadLevel "level1"
+                @loadLevel "level2"
 
             loadLevel : (levelName) ->
                 @stage = []

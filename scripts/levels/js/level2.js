@@ -2,7 +2,7 @@
 (function() {
   define(["lodash"], function(_) {
     var c, key, map, _i, _len, _ref;
-    map = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww wP.............................w w..............................w w..............................w w..............................w w...b..........................w w............wwwwww............w w............w....w............w w............w.t..w............w w............w....w............w w............w....w............w w............ww..ww............w w..............................w w........................b.....w w..............................w w..............................w w..............................w wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww".split(' ').map(function(r) {
+    map = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww w..............................w w..............................w w..............................w w.....wwwwwwwwwwwwwwwwwwwww....w w...b.....................w....w w............wwwwww.......w....w w............w....w.......w....w w............w.P..w.......w....w w............w....w.......w....w w............w....w.......w....w w............ww..wwwww....w....w w.............w.......b...w....w w.............w...........w....w w.............wwwwwwwwwwwww....w w..t...........................w w..............................w wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww".split(' ').map(function(r) {
       return r.split('');
     });
     key = {
@@ -34,4 +34,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=level1.map
+//# sourceMappingURL=level2.map
