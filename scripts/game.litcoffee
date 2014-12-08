@@ -24,15 +24,15 @@ Allow the game to be paused and unpaused:
 Init function initilizes timing and kicks the loops off
 
         init = ->
-
-            world = new level
             hiResTime = window.performance.now()
 
-            state.width = world.width
-            state.height = world.height
+            state.width = 940
+            state.height = 480
             state.startTime = hiResTime
             state.lastFrame = hiResTime
             state.running = true
+
+            loadNextLevel()
 
             display.init state
             display.showFPS = no
@@ -46,9 +46,30 @@ Main game-world loop, started during init. Will skip world update if the game is
             state.startElapsed = hiResTime - state.startTime
             state.frameElapsed = hiResTime - state.lastFrame
             state.lastFrame = hiResTime
+
+            if state.worldComplete
+                state.worldComplete = false
+                loadNextLevel()
+
             if state.running
                 world.update state
             setNextUpdateTimeout()
+
+Load the next leve depending on the state of the world
+
+        loadNextLevel = () ->
+            if world?.failed
+                state.levelName = "gameover"
+            else
+                state.levelName = (
+                    switch state.levelName
+                        when undefined then "start"
+                        when "start" then "level1"
+                        when "level10" then "win"
+                        else "level" + (1 + + /\d+/.exec state.levelName)
+                    )
+
+            world = level.createLevel state
 
 Setup a new timeoutCall.  The idea is to update at 60 fps, but to skip a whole frame if the last
 update took more that 1/60 of a second.

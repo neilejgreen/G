@@ -24,8 +24,8 @@ define ["color", "input"], (color) ->
     renderTarget = (target) ->
         switch target.shape
             when "Rectangle" then canvasRect target
-            when "Text" then canvasText target.message, target.x, target.y
-
+            when "Text" then canvasText target
+            
     canvasRect = (object) ->
         try
             canvas.fillStyle = object.color
@@ -33,10 +33,10 @@ define ["color", "input"], (color) ->
         catch error
             console.error error
 
-    canvasText = (message, x = width - 200 , y = 20 ) ->
-        canvas.fillStyle = color.rgb 0,0,0
+    canvasText = (target) ->
+        canvas.fillStyle = target.color or color.black
         canvas.font = "16px consolas"
-        canvas.fillText message, x, y
+        canvas.fillText target.message, target.x, target.y
 
     renderWorld = (state, targets) ->
         canvasClear()

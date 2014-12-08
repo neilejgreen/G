@@ -1,11 +1,8 @@
     define ["cast", "grids", "lodash"], (cast, grids, _) ->
 
         class level
-            constructor : () ->
-                #TODO Define these elsewhere
-                [@width, @height] = [940, 480]
-
-                @loadLevel "level2"
+            constructor : ({@width, @height, levelName}) ->
+                @loadLevel levelName
 
             loadLevel : (levelName) ->
                 @stage = []
@@ -35,3 +32,11 @@
             render : (state, display) ->
                 targets = _.flatten( actor.getRenderTargets() for actor in @stage )
                 display.renderWorld state, targets
+
+        level.createLevel = (state) ->
+            if state.levelName.indexOf("level") is 0
+                return new level state
+            else
+                return grids.getLevel state.levelName
+
+        return level

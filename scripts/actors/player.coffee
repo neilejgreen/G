@@ -53,5 +53,11 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
                     mainBlock = movedBlock
             attemptMove({x:vector.x, y:0})
             attemptMove({x:0, y:vector.y})
+
+            state.worldComplete = state.worldComplete or stage
+                .filter (it) -> it.type is "treasure"
+                .map (treasure) -> treasure.boundingBlock()
+                .some (treasure) -> collision.hit mainBlock, treasure
+
         getRenderTargets : () ->
             mainBlock
