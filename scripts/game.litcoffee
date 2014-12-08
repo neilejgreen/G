@@ -63,13 +63,21 @@ Load the next leve depending on the state of the world
             else
                 state.levelName = (
                     switch state.levelName
-                        when undefined then "start"
+                        when undefined then getStartingLevel()
                         when "start" then "level1"
                         when "level10" then "win"
                         else "level" + (1 + + /\d+/.exec state.levelName)
                     )
 
             world = level.createLevel state
+
+Check the querystring for a levelName
+
+        getStartingLevel = () ->
+            console.log window.location.search
+            console.log /levelname\=([^&]*)/gi.exec(window.location.search)
+            console.log /levelname\=([^&]*)/gi.exec(window.location.search)?[1]
+            /levelname\=([^&]*)/gi.exec(window.location.search)?[1] or "start"
 
 Setup a new timeoutCall.  The idea is to update at 60 fps, but to skip a whole frame if the last
 update took more that 1/60 of a second.
