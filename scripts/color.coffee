@@ -12,5 +12,6 @@ define ["tinyColor"], (tinyColor) ->
         gold: rgb 0xFF, 0xD7, 0
     }
 
-    colors[k] = tinyColor(v).setAlpha(.05).toString() for k,v of colors
+    if not /color\=unmute/gi.test window.location.search
+        colors[k] = tinyColor(v).setAlpha(.05).toString() for k,v of colors
     return colors
