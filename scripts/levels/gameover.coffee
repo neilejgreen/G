@@ -2,12 +2,17 @@ define ["input"], (input) ->
     worldText = [
         {
             shape : "Text"
-            message : "Press Any Direction Key To Start"
+            message : "Game over!"
             x : 100, y : 200
+        }
+        {
+            shape : "Text"
+            message : "Press R to restart"
+            x : 100, y : 220
         }
     ]
     update : (state) ->
-        if _.intersection(input.getKeys(), "#{d} Arrow" for d in ["Up", "Down", "Left", "Right"]).length
+        if input.isDown("R")
             state.worldComplete = true
     render : (state, display) ->
         display.renderWorld state, worldText

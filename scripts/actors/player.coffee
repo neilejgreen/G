@@ -4,8 +4,8 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
         mainBlock =
             shape : "Rectangle"
             color : color.black
-            x : x, y : y
-            width : width, height : height
+            x : x + width / 4, y : y + height / 4
+            width : width / 2, height : height / 2
 
         type : "player"
         boundingBlock : -> mainBlock
@@ -28,15 +28,16 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
                 vector.x *= Math.SQRT1_2
                 vector.y *= Math.SQRT1_2
 
-            return if not (vector.x or vector.y)
-
             ###
+            Wall collisions
+
             Split move into two different collisionTests :(
             This prevents you slipping through one wall because you collided
             with a different wall first and allows you to move along a wall
             whilst trying to move toward it
             ###
             attemptMove = (v) ->
+                return if not (v.x or v.y)
                 movedBlock = _.clone(mainBlock)
                 movedBlock.x += v.x
                 movedBlock.y += v.y
@@ -54,6 +55,13 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
             attemptMove({x:vector.x, y:0})
             attemptMove({x:0, y:vector.y})
 
+            #Baddie Collision
+            state.failed = state.failed or stage
+                .filter (it) -> it.type is "baddie"
+                .map (baddie) -> baddie.boundingBlock()
+                .some (baddie) -> collision.hit mainBlock, baddie
+
+            #Treasure Collision
             state.worldComplete = state.worldComplete or stage
                 .filter (it) -> it.type is "treasure"
                 .map (treasure) -> treasure.boundingBlock()

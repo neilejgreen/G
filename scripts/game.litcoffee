@@ -47,36 +47,39 @@ Main game-world loop, started during init. Will skip world update if the game is
             state.frameElapsed = hiResTime - state.lastFrame
             state.lastFrame = hiResTime
 
+            if state.running
+                world.update state
+
             if state.worldComplete
                 state.worldComplete = false
                 loadNextLevel()
 
-            if state.running
-                world.update state
+            if state.failed
+                state.failed = false
+                loadNextLevel(true)
+
             setNextUpdateTimeout()
 
 Load the next leve depending on the state of the world
 
-        loadNextLevel = () ->
-            if world?.failed
+        loadNextLevel = (failed) ->
+            if failed
                 state.levelName = "gameover"
             else
                 state.levelName = (
                     switch state.levelName
-                        when undefined then getStartingLevel()
+                        when undefined, "gameover" then getStartingLevel()
                         when "start" then "level1"
-                        when "level10" then "win"
+                        when "level5" then "win"
                         else "level" + (1 + + /\d+/.exec state.levelName)
                     )
 
+            console.log "Starting #{state.levelName}"
             world = level.createLevel state
 
 Check the querystring for a levelName
 
         getStartingLevel = () ->
-            console.log window.location.search
-            console.log /levelname\=([^&]*)/gi.exec(window.location.search)
-            console.log /levelname\=([^&]*)/gi.exec(window.location.search)?[1]
             /levelname\=([^&]*)/gi.exec(window.location.search)?[1] or "start"
 
 Setup a new timeoutCall.  The idea is to update at 60 fps, but to skip a whole frame if the last

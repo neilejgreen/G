@@ -1,5 +1,5 @@
 levelList = [
-    "start"#, "win", "gameover"
+    "start", "gameover" #, "win"
     "level0", "level1", "level2", "level3"
 ]
 

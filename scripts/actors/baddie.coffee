@@ -2,12 +2,12 @@ define ["color", "collision"], (color, collision) ->
     ({x, y, width, height}) ->
         direction = +1
         speed = .2
-        startX = x
+        startX = x + width / 4
         mainBlock =
             shape : "Rectangle"
             color : color.red
-            x : startX, y : y
-            width : width, height : height
+            x : startX, y : y + height / 4
+            width : width / 2, height : height / 2
 
         return {
             type : "baddie"
