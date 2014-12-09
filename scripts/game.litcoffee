@@ -68,7 +68,7 @@ Load the next leve depending on the state of the world
             else
                 state.levelName = (
                     switch state.levelName
-                        when undefined, "gameover" then getStartingLevel()
+                        when undefined, "gameover", "win" then getStartingLevel()
                         when "start" then "level1"
                         when "level5" then "win"
                         else "level" + (1 + + /\d+/.exec state.levelName)

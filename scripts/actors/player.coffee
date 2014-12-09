@@ -61,11 +61,11 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
                 .map (baddie) -> baddie.boundingBlock()
                 .some (baddie) -> collision.hit mainBlock, baddie
 
-            #Treasure Collision
+            #Door Collision
             state.worldComplete = state.worldComplete or stage
-                .filter (it) -> it.type is "treasure"
-                .map (treasure) -> treasure.boundingBlock()
-                .some (treasure) -> collision.hit mainBlock, treasure
+                .filter (it) -> it.type is "door"
+                .map (door) -> door.boundingBlock()
+                .some (door) -> collision.hit mainBlock, door
 
         getRenderTargets : () ->
             mainBlock

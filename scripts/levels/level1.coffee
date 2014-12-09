@@ -8,7 +8,7 @@ define ["lodash"], (_) ->
         w...b..........................w
         w............wwwwww............w
         w............w....w............w
-        w............w.t..w............w
+        w............w.d..w............w
         w............w....w............w
         w............w....w............w
         w............ww..ww............w
@@ -25,7 +25,7 @@ define ["lodash"], (_) ->
         'P' : 'player'
         'w' : 'wall'
         'b' : 'baddie'
-        't' : 'treasure'
+        'd' : 'door'
 
     if (map.length is not 18 and map.every (row) -> row.length is 32)
         throw new Error("Map is not 32 * 18!")

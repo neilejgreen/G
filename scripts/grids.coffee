@@ -1,7 +1,8 @@
 levelList = [
-    "start", "gameover" #, "win"
-    "level0", "level1", "level2", "level3"
+    "start", "gameover", "win"
 ]
+
+levelList.push "level#{l}" for l in [0..3]
 
 externals = ["lodash"].concat("levels/#{a}" for a in levelList)
 
