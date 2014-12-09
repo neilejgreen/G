@@ -3,12 +3,12 @@ Todo
 
 General
 ---------
-+ Win condition
-  + and win screen or continuation
 + Game overlay
 
 Achieved
 ----------
++ Win condition
+  + and win screen or continuation
 + Bad guy interaction
     + including death
 + Game State

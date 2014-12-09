@@ -63,7 +63,7 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
 
             #Door Collision
             state.worldComplete = state.worldComplete or stage
-                .filter (it) -> it.type is "door"
+                .filter (it) -> it.type is "door" or it.type is "treasure"
                 .map (door) -> door.boundingBlock()
                 .some (door) -> collision.hit mainBlock, door
 
