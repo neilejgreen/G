@@ -1,22 +1,8 @@
 define [], () ->
 
     hit : (one, two) ->
-
-        place = (it) ->
-            left : it.x
-            right : it.x + it.width
-            top : it.y
-            bottom : it.y + it.height
-
-        [oneP, twoP] = (place it for it in [one, two])
-
-        xCollision = [oneP.left, oneP.right].some (x) ->
-            twoP.left <= x <= twoP.right
-        yCollision = [oneP.top, oneP.bottom].some (y) ->
-            twoP.top <= y <= twoP.bottom
-
-        xCollision = oneP.left < twoP.right and oneP.right > twoP.left
-        yCollision = oneP.top < twoP.bottom and oneP.bottom > twoP.top
+        xCollision = one.x < (two.x + two.width) and (one.x + one.width) > two.x
+        yCollision = one.y < (two.y + two.height) and (one.y + one.height) > two.y
 
         return xCollision and yCollision
 
