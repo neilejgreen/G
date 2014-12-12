@@ -7,8 +7,10 @@ First step is to configure require
 
     require.config
         paths :
+            ###
             actors : "../actors/js"
             levels : "../levels/js"
+            ###
             lodash : "../../lib/lodash"
             tinyColor: "//cdnjs.cloudflare.com/ajax/libs/tinycolor/1.1.0/tinycolor"
         shim :

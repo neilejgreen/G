@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -35,8 +36,9 @@ Icon
 .Spotlight-V100
 .Trashes
 
+#cloud9 files
+.c9/
+
 #compiled js
-scripts/js
-scripts/actors/js
+scripts/
 tests/js
-scripts/levels/js
