@@ -1,11 +1,7 @@
 
 require.config
     paths :
-        ###
-        actors : "../actors/js"
-        levels : "../levels/js"
-        ###
-        lodash : "../../lib/lodash"
+        lodash : "//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash"
         tinyColor: "//cdnjs.cloudflare.com/ajax/libs/tinycolor/1.1.0/tinycolor"
     shim :
         lodash :
