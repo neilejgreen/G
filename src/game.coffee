@@ -69,7 +69,6 @@ define ["level", "display"], (level, display) ->
         setTimeout updateWorld, timeTillNextFrame
     
     updateDisplay = (hiResTime) ->
-        #doesn't need to pause, this will be handled by use of `requestAnimationFrame`
         world.render state, display
         window.requestAnimationFrame updateDisplay
     
