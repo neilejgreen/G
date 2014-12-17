@@ -1,11 +1,10 @@
-levelList = [
-    "start", "gameover", "win"
-]
-
-levelList.push "level#{l}" for l in [0..5]
-
-externals = ["lodash"].concat("levels/#{a}" for a in levelList)
-
-define externals, (lodash, levels...) ->
-    levelHash = lodash.zipObject levelList, levels
-    getLevel : (levelName) -> return levelHash[levelName]
+module.exports =
+    start : require './levels/start'
+    gameover : require './levels/gameover'
+    win : require './levels/win'
+    level0 : require './levels/level0'
+    level1 : require './levels/level1'
+    level2 : require './levels/level2'
+    level3 : require './levels/level3'
+    level4 : require './levels/level4'
+    level5 : require './levels/level5'

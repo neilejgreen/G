@@ -1,4 +1,7 @@
-define ["color", "collision"], (color, collision) ->
+color = require('../color')
+collision = require('../collision')
+
+module.exports = 
     ({x, y, width, height}) ->
         direction = +1
         speed = .2

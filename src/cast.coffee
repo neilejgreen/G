@@ -1,6 +1,15 @@
+lodash = require('lodash')
+
+
 castList = ["empty", "baddie", "treasure", "wall", "player", "door"]
 
-externals = ["lodash"].concat("actors/#{a}" for a in castList)
+externals = ("./actors/#{a}" for a in castList)
 
-define externals, (lodash, actors...) ->
-    lodash.zipObject castList, actors
+module.exports =
+    empty : require './actors/empty'
+    baddie : require './actors/baddie'
+    treasure : require './actors/treasure'
+    wall : require './actors/wall'
+    player : require './actors/player'
+    door : require './actors/door'
+

@@ -1,4 +1,9 @@
-define ["lodash", "color", "collision", "input"], (lodash, color, collision, input) ->
+lodash = require "lodash"
+color = require "../color"
+collision = require "../collision"
+input = require "../input"
+    
+module.exports = 
     ({x, y, width, height}) ->
         speed = .3 # pixels / millisecond
         mainBlock =
@@ -38,7 +43,7 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
             ###
             attemptMove = (v) ->
                 return if not (v.x or v.y)
-                movedBlock = _.clone(mainBlock)
+                movedBlock = lodash.clone(mainBlock)
                 movedBlock.x += v.x
                 movedBlock.y += v.y
 
@@ -47,7 +52,7 @@ define ["lodash", "color", "collision", "input"], (lodash, color, collision, inp
                     .map (it) -> it.boundingBlock()
 
                 movedBlockCollision = collision.hit.bind collision, movedBlock
-                hitBlk = _.find wallBlocks, movedBlockCollision
+                hitBlk = lodash.find wallBlocks, movedBlockCollision
                 if hitBlk
                     collision.moveTo mainBlock, hitBlk, v
                 else

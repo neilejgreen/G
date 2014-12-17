@@ -1,26 +1,25 @@
-define () ->
+postponedFuncs = []
 
-    postponedFuncs = []
+isLoaded = ->  document?.readyState is "complete"
 
-    loadComplete = document.readystate isnt "loading"
+if not isLoaded()
+    document?.addEventListener "readystatechange", () ->
+        return if not isLoaded()
+        f() for f in postponedFuncs
 
-    if not loadComplete
-        document.addEventListener "readystatechange", () ->
-            loadComplete = true
-            f() for f in postponedFuncs
+onLoad  = (func) ->
+    if isLoaded()
+        func()
+    else
+        postponedFuncs.push func
+    return
 
-    onLoad  = (func) ->
-        if loadComplete
-            func()
-        else
-            postponedFuncs.push func
-        return
+focus = (focus, blur) ->
+    addEventListener? "focus", focus
+    addEventListener? "blur", blur
+    return
 
-    focus = (focus, blur) ->
-        addEventListener "focus", focus
-        addEventListener "blur", blur
-
-    return {
-        onLoad
-        focus
-    }
+module.exports = {
+    onLoad
+    focus
+}

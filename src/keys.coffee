@@ -18,7 +18,7 @@ for code in ['0'.charCodeAt(0)..'9'.charCodeAt(0)]
 
 KEYS[code] = key for key, code of KEYS
 
-define(KEYS)
+module.exports = KEYS
 
 ###
 Others I might want later

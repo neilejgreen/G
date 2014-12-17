@@ -1,5 +1,4 @@
-define [], () ->
-
+module.exports =
     hit : (one, two) ->
         xCollision = one.x < (two.x + two.width) and (one.x + one.width) > two.x
         yCollision = one.y < (two.y + two.height) and (one.y + one.height) > two.y

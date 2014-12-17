@@ -1,0 +1,10 @@
+{
+  "name": "g7fr2",
+  "description": "Simple Dungeon Game",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "lodash": "*",
+    "tinycolor2": "*"
+  }
+}

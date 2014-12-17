@@ -39,6 +39,10 @@ Icon
 #cloud9 files
 .c9/
 
+#node files
+node_modules
+
 #compiled js
 scripts/
 tests/js
+js.js

@@ -1,4 +1,5 @@
-define ["color"], (color) ->
+color = require('../color')
+module.exports =
     ({x, y, width, height}) ->
         type : "wall"
         boundingBlock: -> {x, y, width, height}

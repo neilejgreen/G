@@ -1,4 +1,6 @@
-define ["color"], (color) ->
+color = require '../color'
+
+module.exports = 
     ({x, y, width, height}) ->
         block =
             shape : "Rectangle"

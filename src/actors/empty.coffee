@@ -1,2 +1,1 @@
-define () ->
-    () ->
+module.exports = ->
