@@ -29,7 +29,6 @@ init = ->
 
 updateWorld = () ->
     hiResTime = window.performance.now()
-    state.startElapsed = hiResTime - state.startTime
     state.frameElapsed = hiResTime - state.lastFrame
     state.lastFrame = hiResTime
 
